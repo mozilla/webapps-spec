@@ -1,11 +1,17 @@
 <!DOCTYPE html>
+
 <html>
-  <head>
-    <title>Web Application Manifest Format and Management APIs</title>
-    <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
-    <script src='http://dev.w3.org/2009/dap/ReSpec.js/js/respec.js' class='remove'></script>
-    <script class='remove'>
-      var respecConfig = {
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/d193420">
+
+  <title>Web Application Manifest Format and Management APIs</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+  <script src='http://dev.w3.org/2009/dap/ReSpec.js/js/respec.js' class=
+  'remove'>
+</script>
+  <script class='remove'>
+    var respecConfig = {
           // document info
           subtitle:             "A format for describing web applications and APIs to install, launch and manage them",
           specStatus:           "unofficial",
@@ -18,7 +24,7 @@
           inlineCSS:            true,
           // editors
           editors:  [
-              { name: "Apps Team", url: "http://mozilla.org/apps/",
+              { name: "Anant Narayanan",
                 company: "Mozilla", companyURL: "http://mozilla.org/" }
           ],
           // WG
@@ -35,25 +41,27 @@
       function fixSchema(r, content) {
         return r._esc(content);
       }
-    </script>
-  </head>
-  <body>
-    <section id='abstract'>
-      This document specifies a JSON based format to describe installable web applications. In addition,
-      a set of JavaScript APIs are described that allow web content to trigger installation of such
-      applications, as well as manage them on behalf of the user.
-    </section>
-    
-    <section>
-      <h2>App Manifest</h2>
-      <p>
-        An application <dfn>manifest</dfn> is a JSON file describing an installable web application.
-        This JSON file consists of a top-level object and several properties.
-      </p>
+  </script>
+</head>
 
-      <section>
-        <h2>Example</h2>
-        <p><pre>
+<body>
+  <section id='abstract'>
+    This document specifies a JSON based format to describe installable web
+    applications. In addition, a set of JavaScript APIs are described that
+    allow web content to trigger installation of such applications, as well as
+    manage them on behalf of the user.
+  </section>
+
+  <section>
+    <h2>App Manifest</h2>
+
+    <p>An application <dfn>manifest</dfn> is a JSON file describing an
+    installable web application. This JSON file consists of a top-level object
+    and several properties.</p>
+
+    <section>
+      <h2>Example</h2>
+      <pre>
   {
     "name": "MozillaBall",
     "description": "Exciting Open Web development action!",
@@ -90,289 +98,266 @@
     "orientation": "landscape",
     "fullscreen": "true"
   }
-        </pre></p>
-      </section>
-
-      <section>
-        <h2>Properties</h2>
-
-        <h3>Mandatory Properties</h3>
-        <ul>
-          <li><dfn>name</dfn>:
-            The name of the web application in the default locale.
-            Maximum length is 128 characters.
-          </li>
-          <li><dfn>description</dfn>:
-            A short description of the web application in the default locale.
-            Maximum length is 1024 characters.
-          </li>
-          <li><dfn>default_locale</dfn>:
-            [Mandatory only if "locales" property is set]. The locale of the
-            top-level name and description.
-          </li>
-        </ul>
-
-        <h3>Optional Properties</h3>
-        <ul>
-          <li><dfn>launch_path</dfn>:
-            The path within the web application's origin that is loaded
-            when the application is launched
-          </li>
-          <li><dfn>icons</dfn>:
-            A map of icon sizes to URIs of the icons (which may be absolute or data URIs).
-            Icons MUST be square.
-          </li>
-          <li><dfn>developer</dfn>:
-            Information about the developer of the application, suitable for display.
-            <ul>
-              <li><dfn>name</dfn>: The name of the developer.</li>
-              <li><dfn>url</dfn>: A URL pointing to the developer's website</li>
-            </ul>
-          </li>
-          <li><dfn>locales</dfn>:
-            A map of locale specific overrides of data contained in the manifest. Each
-            locale key is keyed on a locale tag [RFC4646], and contains a sparse
-            representation of the manifest. Any field in the <a>locales</a> property
-            will override the corresponding property in the manifest. The <a>locales</a>,
-            <a>installs_allowed_from</a>, and <a>default_locale</a> CANNOT be overridden.
-            If the <a>locales</a> property is set, the <a>default_locale</a> MUST also be
-            set.
-          </li>
-          <li><dfn>installs_allowed_from</dfn>:
-            An array of origins that are allowed to trigger installation of this application.
-            This field allows the developer to restrict installation of their application to
-            specific sites. If the value is omitted, installs are allowed from any site.
-          </li>
-          <li><dfn>version</dfn>:
-            A string that represents the version of this manifest. The User-Agent does
-            not interpret this value in any way and is opqaue to everyone but the
-            application itself. The field is provided to help the developer deal
-            with various update cases, which will be discussed in following sections.
-          </li>
-          <li><dfn>screen_size</dfn>:
-            This object may contain the <code>min_height</code> and <code>min_width</code>
-            properties that describe the minimum height and width (in pixels) the application
-            needs in order to render correctly. Interpretation of these values is left up
-            to the runtime and/or app store.
-          </li>
-          <li><dfn>required_features</dfn>:
-            This array consists of a set of values that describes the mandatory features the
-            application needs in order to run correctly. A full list of valid values is TBD.
-          </li>
-          <li><dfn>orientation</dfn>:
-            This value defines the orientation at which the application will initially start.
-            Can be one of "portrait", "landscape", "portrait-secondary" or "landscape-secondary".
-            The options suffixed with "-secondary" imply a 180 degree rotation from the options
-            without the suffix, for instance, holding the phone upside down (but
-            still in a manner where width &lt; height), implies the "portrait-secondary" 
-            orientation. If this field had a valid value, the runtime will not change the orientation
-            of the view rendering the application even if the device is turned.
-          </li>
-          <li><dfn>fullscreen</dfn>:
-            This value is set to "true" or "false" to describe whether the runtime should
-            launch the application in fullscreen mode.
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Serving Manifests</h2>
-        <p>
-          An application manifest MUST be served from the same origin that the application
-          itself is served from. There MUST only be one application per origin.
-        </p>
-        <p>
-          When served as a static file, it is RECOMMENDED that the manifest be stored
-          with the extension <code>.webapp</code>. The manifest MUST be served with a
-          <code>Content-Type</code> header of <code>application/x-web-app-manifest+json</code>.
-          It is RECOMMENDED that manifests be served over SSL.
-        </p>
-      </section>
+        
+</pre>
     </section>
 
     <section>
-      <h2>Application Records</h2>
-      <section>
-        <p>
-          Applications are represented by a JavaScript object that is accessible to web content.
-        </p>
-        <dl title='interface AppObject' class='idl'>
-          <dt>readonly attribute DOMString origin</dt>
-          <dd>
-            The origin of the application, represented by a FQDN.
-          </dd>
-          <dt>readonly attribute Object manifest</dt>
-          <dd>
-            A JavaScript object as returned by JSON.parse invoked on the manifest.
-          </dd>
-          <dt>readonly attribute DOMString installOrigin</dt>
-          <dd>
-            The origin of the page from which the application was installed.
-          </dd>
-          <dt>readonly attribute unsigned long installTime</dt>
-          <dd>
-            Time in milliseconds since epoch at which the application was installed.
-          </dd>
-          <dt>readonly attribute Object parameters</dt>
-          <dd>
-            Parameters that were provided at install time.
-          </dd>
-          <dt>EventTarget launch()</dt>
-          <dd>
-            Launches this application (behaviour is runtime dependent).
-          </dd>
-          <dt>EventTarget uninstall()</dt>
-          <dd>
-            Uninstalls this application. <em>This call is available to privileged callers only.</em>
-          </dd>
-        </dl>
-      </section>
-    </section>
-    <section>
-      <h2>Application Registry</h2>
-      <section>
-        <p>
-          A privileged caller is a web page that has been explicitely authorized by the user to manage
-          applications on their behalf. Such privileged origins also have access to the AppRegistry
-          interface as described below.
-        </p>
-        <dl title='interface AppRegistry : Navigator' class='idl'>
-          <dt>EventTarget install(in DOMString manifestUrl, [Optional] in Object parameters)</dt>
-          <dd>
-            Triggers the installation of an application as specified by the manifest at
-            <code>manifestUrl</code>. The User-Agent must fetch the manifest from the provided
-            URL, verify that it is valid, and then ask for permission from the user to allow
-            installation to proceed. The User-Agent must also persist the parameters provided
-            (if any) which may later be retrived from the <code>AppObject</code> representing
-            this application. The user may choose to whitelist certain origins to allow them
-            to install applications without any permission prompts.
-          </dd>
-          <dt>EventTarget getSelf()</dt>
-          <dd>
-            Retrieves the application record for the origin from which the call is made.
-          </dd>
-          <dt>EventTarget getInstalled()</dt>
-          <dd>
-            Retrives application records for all applications that have been installed so far.
-            <em>This call is available to privileged callers only.</em>
-          </dd>
-          <dt>attribute EventListener oninstall</dt>
-          <dd>
-            This value may be set to a function that will be invoked when an application is
-            installed. The only argument to this function will be the <code>AppObject</code> of the
-            applicatio that was installed. <em>This attribute can be set by priveleged callers only.</em>
-          </dd>
-          <dt>attribute EventListener onuninstall</dt>
-          <dd>
-            This value may be set to a function that will be invoked when an application is
-            uninstalled. The only argument to this function be the <code>AppObject</code> of the
-            application that was uninstalled. <em>This attribute can be set by privileged callers only.</em>
-          </dd>
-        </dl>
-      </section>
-      <h2>Application Events</h2>
-      <section>
-        <p>
-          Most of the methods described above return an <code>EventTarget</code> object to which
-          success and error handlers may be attached using standard DOM methods like <code>addEventListener</code>
-          or attributes like <code>onsuccess</code> and <code>onerror</code>.
-        </p>
-        <dl title='interface AppEventError' class='idl'>
-          <dt>const unsigned short PERMISSION_DENIED = 1</dt>
-          <dd>Installation was denied (by user or UA).</dd>
-          <dt>const unsigned short MANIFEST_URL_ERROR = 2</dt>
-          <dd>The manifest could not be found at the given location.</dd>
-          <dt>const unsigned short NETWORK_ERROR = 4</dt>
-          <dd>The manifest could not fetched from the given location at this time.</dd>
-          <dt>const unsigned short MANIFEST_PARSE_ERROR = 5</dt>
-          <dd>The manifest could not be parsed.</dd>
-          <dt>const unsigned short INVALID_MANIFEST = 6</dt>
-          <dd>The manifest was able to be parsed but contains invalid values.</dd>
-          <dt>readonly attribute short code</dt>
-          <dd>This value is set to one of the constants defined in this interface.</dd>
-        </dl>
+      <h2>Properties</h2>
 
-        <dl title='interface AppEventTarget : EventTarget' class='idl'>
-          <dt>attribute EventListener onsuccess</dt>
-          <dd>May be set to a success handler.</dd>
-          <dt>attribute EventListener onerror</dt>
-          <dd>May be set to an error handler.</dd>
-          <dt>void addEventListener(DOMString event, EventListener e)</dt>
-          <dd>
-            <code>event</code> can be either be "install" or "uninstall".
-          </dd>
-          <dt>void removeEventListener(DOMString event, EventListener e)</dt>
-          <dd>
-            <code>event</code> can either be "install" or "uninstall".
-          </dd>
-          <dt>readonly attribute Object result</dt>
-          <dd>
-            The type and value of <code>result</code> depends on the operation for which this
-            <code>EventTarget</code> was returned. If an <code>onerror</code> is fired, this
-            value will be set to <code>AppEventError</code>. When <code>getSelf()</code> and
-            <code>getInstalled()</code> succeed, ths value will be set to an array of
-            <code>AppObject</code>s.
-          </dd>
-        </dl>
-      </section>
-    </section>
-    <!--
-    <section>
-      <h2>A Good Reference</h2>
-      <p>
-        One can trivially make references to any specification, say for instance [[WIDGETS]], [[WICD]],
-        and even in a normative way [[!REX]] or [[!SVGMOBILE12]]. It's all about I18N, [[ZHMARK]].
-      </p>
-    </section>
-    
-    <section>
-      <h2>Russian Turtles</h2>
-      <p>
-        This section has an <code>h2</code> title in the original source.
-      </p>
-      <section>
-        <h2>Russian Turtles</h2>
-        <p>
-          This section has an <code>h2</code> title in the original source.
-        </p>
-        <section>
-          <h2>Russian Turtles</h2>
-          <p>
-            This section has an <code>h2</code> title in the original source.
-          </p>
-          <section>
-            <h2>Russian Turtles</h2>
-            <p>
-              This section has an <code>h2</code> title in the original source.
-            </p>
-            <section>
-              <h2>Russian Turtles</h2>
-              <p>
-                This section has an <code>h2</code> title in the original source.
-              </p>
-              <section>
-                <h2>Russian Turtles</h2>
-                <p>
-                  This section has an <code>h2</code> title in the original source.
-                </p>
-              </section>
-            </section>
-          </section>
-        </section>
-      </section>
+      <h3>Mandatory Properties</h3>
+
+      <ul>
+        <li><dfn>name</dfn>: The name of the web application in the default
+        locale. Maximum length is 128 characters.</li>
+
+        <li><dfn>description</dfn>: A short description of the web application
+        in the default locale. Maximum length is 1024 characters.</li>
+
+        <li><dfn>default_locale</dfn>: [Mandatory only if "locales" property is
+        set]. The locale of the top-level name and description.</li>
+      </ul>
+
+      <h3>Optional Properties</h3>
+
+      <ul>
+        <li><dfn>launch_path</dfn>: The path within the web application's
+        origin that is loaded when the application is launched</li>
+
+        <li><dfn>icons</dfn>: A map of icon sizes to URIs of the icons (which
+        may be absolute or data URIs). Icons MUST be square.</li>
+
+        <li>
+          <dfn>developer</dfn>: Information about the developer of the
+          application, suitable for display.
+
+          <ul>
+            <li><dfn>name</dfn>: The name of the developer.</li>
+
+            <li><dfn>url</dfn>: A URL pointing to the developer's website</li>
+          </ul>
+        </li>
+
+        <li>
+          <dfn>locales</dfn>: A map of locale specific overrides of data
+          contained in the manifest. Each locale key is keyed on a locale tag
+          [RFC4646], and contains a sparse representation of the manifest. Any
+          field in the <a>locales</a> property will override the corresponding
+          property in the manifest. The <a>locales</a>,
+          <a>installs_allowed_from</a>, and <a>default_locale</a> CANNOT be
+          overridden. If the <a>locales</a> property is set, the
+          <a>default_locale</a> MUST also be set.
+        </li>
+
+        <li><dfn>installs_allowed_from</dfn>: An array of origins that are
+        allowed to trigger installation of this application. This field allows
+        the developer to restrict installation of their application to specific
+        sites. If the value is omitted, installs are allowed from any
+        site.</li>
+
+        <li><dfn>version</dfn>: A string that represents the version of this
+        manifest. The User-Agent does not interpret this value in any way and
+        is opqaue to everyone but the application itself. The field is provided
+        to help the developer deal with various update cases, which will be
+        discussed in following sections.</li>
+
+        <li><dfn>screen_size</dfn>: This object may contain the
+        <code>min_height</code> and <code>min_width</code> properties that
+        describe the minimum height and width (in pixels) the application needs
+        in order to render correctly. Interpretation of these values is left up
+        to the runtime and/or app store.</li>
+
+        <li><dfn>required_features</dfn>: This array consists of a set of
+        values that describes the mandatory features the application needs in
+        order to run correctly. A full list of valid values is TBD.</li>
+
+        <li><dfn>orientation</dfn>: This value defines the orientation at which
+        the application will initially start. Can be one of "portrait",
+        "landscape", "portrait-secondary" or "landscape-secondary". The options
+        suffixed with "-secondary" imply a 180 degree rotation from the options
+        without the suffix, for instance, holding the phone upside down (but
+        still in a manner where width &lt; height), implies the
+        "portrait-secondary" orientation. If this field had a valid value, the
+        runtime will not change the orientation of the view rendering the
+        application even if the device is turned.</li>
+
+        <li><dfn>fullscreen</dfn>: This value is set to "true" or "false" to
+        describe whether the runtime should launch the application in
+        fullscreen mode.</li>
+      </ul>
     </section>
 
-      <section>
-      <h2>Transforming content</h2>
-      <p>Transforming content is also easy! <span data-transform='hilight'>this text is hilighted by being wrapped in an 'em'</span>.</p>
-      </section>
+    <section>
+      <h2>Serving Manifests</h2>
 
-    <section class='appendix'>
-      <h2>Acknowledgements</h2>
-      <p>
-        Many thanks to Marcos Cáceres for moral support, and to Bert Bos and Geoffrey Sneddon for their
-        tools from which I pilfered joyfully.
-      </p>
-    </section>-->
-  </body>
+      <p>An application manifest MUST be served from the same origin that the
+      application itself is served from. There MUST only be one application per
+      origin.</p>
+
+      <p>When served as a static file, it is RECOMMENDED that the manifest be
+      stored with the extension <code>.webapp</code>. The manifest MUST be
+      served with a <code>Content-Type</code> header of
+      <code>application/x-web-app-manifest+json</code>. It is RECOMMENDED that
+      manifests be served over SSL.</p>
+    </section>
+  </section>
+
+  <section>
+    <h2>Application Records</h2>
+
+    <section>
+      <p>Applications are represented by a JavaScript object that is accessible
+      to web content.</p>
+
+      <dl title='interface AppObject' class='idl'>
+        <dt>readonly attribute DOMString origin</dt>
+
+        <dd>The origin of the application, represented by a FQDN.</dd>
+
+        <dt>readonly attribute Object manifest</dt>
+
+        <dd>A JavaScript object as returned by JSON.parse invoked on the
+        manifest.</dd>
+
+        <dt>readonly attribute DOMString installOrigin</dt>
+
+        <dd>The origin of the page from which the application was
+        installed.</dd>
+
+        <dt>readonly attribute unsigned long installTime</dt>
+
+        <dd>Time in milliseconds since epoch at which the application was
+        installed.</dd>
+
+        <dt>readonly attribute Object parameters</dt>
+
+        <dd>Parameters that were provided at install time.</dd>
+
+        <dt>EventTarget launch()</dt>
+
+        <dd>Launches this application (behaviour is runtime dependent).</dd>
+
+        <dt>EventTarget uninstall()</dt>
+
+        <dd>Uninstalls this application. <em>This call is available to
+        privileged callers only.</em></dd>
+      </dl>
+    </section>
+  </section>
+
+  <section>
+    <h2>Application Registry</h2>
+
+    <section>
+      <p>A privileged caller is a web page that has been explicitely authorized
+      by the user to manage applications on their behalf. Such privileged
+      origins also have access to the AppRegistry interface as described
+      below.</p>
+
+      <dl title='interface AppRegistry : Navigator' class='idl'>
+        <dt>EventTarget install(in DOMString manifestUrl, [Optional] in Object
+        parameters)</dt>
+
+        <dd>Triggers the installation of an application as specified by the
+        manifest at <code>manifestUrl</code>. The User-Agent must fetch the
+        manifest from the provided URL, verify that it is valid, and then ask
+        for permission from the user to allow installation to proceed. The
+        User-Agent must also persist the parameters provided (if any) which may
+        later be retrived from the <code>AppObject</code> representing this
+        application. The user may choose to whitelist certain origins to allow
+        them to install applications without any permission prompts.</dd>
+
+        <dt>EventTarget getSelf()</dt>
+
+        <dd>Retrieves the application record for the origin from which the call
+        is made.</dd>
+
+        <dt>EventTarget getInstalled()</dt>
+
+        <dd>Retrives application records for all applications that have been
+        installed so far. <em>This call is available to privileged callers
+        only.</em></dd>
+
+        <dt>attribute EventListener oninstall</dt>
+
+        <dd>This value may be set to a function that will be invoked when an
+        application is installed. The only argument to this function will be
+        the <code>AppObject</code> of the applicatio that was installed.
+        <em>This attribute can be set by priveleged callers only.</em></dd>
+
+        <dt>attribute EventListener onuninstall</dt>
+
+        <dd>This value may be set to a function that will be invoked when an
+        application is uninstalled. The only argument to this function be the
+        <code>AppObject</code> of the application that was uninstalled.
+        <em>This attribute can be set by privileged callers only.</em></dd>
+      </dl>
+    </section>
+
+    <h2>Application Events</h2>
+
+    <section>
+      <p>Most of the methods described above return an <code>EventTarget</code>
+      object to which success and error handlers may be attached using standard
+      DOM methods like <code>addEventListener</code> or attributes like
+      <code>onsuccess</code> and <code>onerror</code>.</p>
+
+      <dl title='interface AppEventError' class='idl'>
+        <dt>const unsigned short PERMISSION_DENIED = 1</dt>
+
+        <dd>Installation was denied (by user or UA).</dd>
+
+        <dt>const unsigned short MANIFEST_URL_ERROR = 2</dt>
+
+        <dd>The manifest could not be found at the given location.</dd>
+
+        <dt>const unsigned short NETWORK_ERROR = 4</dt>
+
+        <dd>The manifest could not fetched from the given location at this
+        time.</dd>
+
+        <dt>const unsigned short MANIFEST_PARSE_ERROR = 5</dt>
+
+        <dd>The manifest could not be parsed.</dd>
+
+        <dt>const unsigned short INVALID_MANIFEST = 6</dt>
+
+        <dd>The manifest was able to be parsed but contains invalid
+        values.</dd>
+
+        <dt>readonly attribute short code</dt>
+
+        <dd>This value is set to one of the constants defined in this
+        interface.</dd>
+      </dl>
+
+      <dl title='interface AppEventTarget : EventTarget' class='idl'>
+        <dt>attribute EventListener onsuccess</dt>
+
+        <dd>May be set to a success handler.</dd>
+
+        <dt>attribute EventListener onerror</dt>
+
+        <dd>May be set to an error handler.</dd>
+
+        <dt>void addEventListener(DOMString event, EventListener e)</dt>
+
+        <dd><code>event</code> can be either be "install" or "uninstall".</dd>
+
+        <dt>void removeEventListener(DOMString event, EventListener e)</dt>
+
+        <dd><code>event</code> can either be "install" or "uninstall".</dd>
+
+        <dt>readonly attribute Object result</dt>
+
+        <dd>The type and value of <code>result</code> depends on the operation
+        for which this <code>EventTarget</code> was returned. If an
+        <code>onerror</code> is fired, this value will be set to
+        <code>AppEventError</code>. When <code>getSelf()</code> and
+        <code>getInstalled()</code> succeed, ths value will be set to an array
+        of <code>AppObject</code>s.</dd>
+      </dl>
+    </section>
+  </section>
+</body>
 </html>
