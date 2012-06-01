@@ -52,6 +52,42 @@
     manage them on behalf of the user.
   </section>
 
+      <section>
+      <h2>Introduction</h2>
+      <p>
+      </p>
+        <section>
+        <h3>Typographic Conventions</h3>
+        <p><em>This section is non-normative.</em></p>
+         <p>This section defines the <dfn>typographical conventions</dfn> used by this
+           specification. Some text in this specification is non-normative. Non-normative text includes:</p>
+         <ul><li>sections marked with the text <q><em>This section is non-normative</em></q>,</li>
+           <li>authoring guidelines,</li>
+           <li>examples,</li>
+           <li>and notes.</li>
+         </ul><p>Everything else in this specification is normative.</p>
+         <p>Defined terms appear as this <dfn>sample defined
+           term</dfn>. Such terms are referenced as <a>sample defined term</a>, providing a
+           link back to the term definition.</p>
+         <p>Words that denote a conformance clause or testable assertion use keywords from <a href="#rfc2119">[RFC2119]</a>:
+         MUST, MUST NOT, SHOULD, RECOMMENDED, MAY and OPTIONAL. The keywords MUST, MUST NOT, SHOULD, RECOMMENDED, MAY and OPTIONAL
+         in this specification are to be interpreted as described in <a href="#rfc2119">[RFC2119]</a>.</p>
+          <p>Variables are formatted specially, e.g. <var>variable</var>. Code is also specially
+           formatted, such as <code>code</code>.</p>
+          <pre class="example">This is an example. Examples are used to explain concepts or demonstrate how to use a feature. Examples are non-normative.</pre>
+          <div class="practice">
+            <p>
+            <span id="sample-practice" class="practicelab">Title of the practice</span></p>
+            <p class="practicedesc">
+            This is a Best Practice. Its purpose is to provide authors with best-practice authoring techniques.
+           Best Practices are non-normative.          
+            </p>
+          </div>
+          <p class="note">Note:</span> This is a note, it usually contains useful supplementary information in a non-normative form.</p>
+        </section>
+              
+    </section>
+  
   <section>
     <h2>App Manifest</h2>
 
@@ -59,9 +95,14 @@
     installable web application. This JSON file consists of a top-level object
     and several properties.</p>
 
+    <p>
+        This section provides an example of a web application manifest, and afterwards describes the different properties in the manifest.
+    </p>
+    
     <section>
-      <h2>Example</h2>
-      <pre>
+      <h2>Example Web Application Manifest</h2>
+        <p>This is an example of a Web Application Manifest</p>
+        <p><pre class="example">
   {
     "name": "MozillaBall",
     "description": "Exciting Open Web development action!",
@@ -99,92 +140,316 @@
     "fullscreen": "true"
   }
         
-</pre>
-    </section>
+      </pre></p>
+  </section>
 
-    <section>
-      <h2>Properties</h2>
+      <section>
+        <h2>The <dfn><code>name</code></dfn> property</h2>
+        The name of the web application.
+        <dl>
+          <dt>Context in which this property is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>String. Maximum length is 128 characters. A <a>privileged caller</a> MAY discard characters exceeding 128.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <!-- <dd><code title="span element"><a href="#the-span-element-and-its-attributes">span</a></code>: zero or more.</dd> -->
+          <dt>Occurrences:</dt>
+          <dd>One as a root property. One per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      </section>
+      
+      <section>
+        <h2>The <dfn><code>description</code></dfn> property</h2>
+        A short description of the web application.
+        <dl>
+          <dt>Context in which this property is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>String. Maximum length is 1024 characters. A <a>privileged caller</a> MAY discard characters exceeding 1024</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>One as a root property. One per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      </section>
+      
+      <section>
+        <h2>The <dfn><code>launch_path</code></dfn> property</h2>
+        The path within the web application's origin that is loaded when the application is launched.
+        <dl>
+          <dt>Context in which this property is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>String.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a root property. Zero or one per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      </section>
+      
+      <section>
+        <h2>The <dfn><code>icons</code></dfn> property</h2>
+        The icons used to represent the web application in different sizes. Icons MUST be square, thus its size is represented by a single number, the length of one side.
+        <dl>
+          <dt>Context in which this property is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>A map of pairs:
+            <ul>         
+              <li>Icon size: length of one side of the square icon (in pixels).</li>
+              <li>Icon URI: absolute or data URIs of the icon in that specific size.</li>
+            </ul>  
+          </dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a root property. Zero or one per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      </section>
+      
+      <section>
+        <h2>The <dfn><code>developer</code></dfn> property</h2>
+        Information about the developer of the application, suitable for display.
+        <dl>
+          <dt>Context in which this property is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>Empty.</dd>
+          <dt>Expected children:</dt>
+            <ul>         
+              <li>Zero or one <a><code>developer_name</code></a> properties.</li>
+              <li>Zero or one <a><code>developer_url</code></a> properties.</li>
+            </ul>  
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a root property. Zero or one per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      
+      <section>
+        <h2>The <dfn><code>developer_name</code></dfn> property</h2>
+        The name of the developer, suitable for display.
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a child of the <code><a>developer</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>String. Maximum length is 128 characters. A <a>privileged caller</a> MAY discard characters exceeding 128.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>One as a child of each  <code><a>developer</a></code> property.</dd>
+        </dl>
+      </section>
+      
+      <section>
+        <h2>The <dfn><code>developer_url</code></dfn> property</h2>
+        A URL pointing to the developer's website.
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a child of the <code><a>developer</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>String.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>One as a child of each  <code><a>developer</a></code> property.</dd>
+        </dl>
+      </section>      
+      </section>
+      
+      <section>
+        <h2>The <dfn><code>installs_allowed_from</code></dfn> property</h2>
+        The set of origins that are allowed to trigger installation of this application.
+            This field allows the developer to restrict installation of their application to
+            specific sites. If the value is omitted, installs are allowed from any site.
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a root property.</dd>
+          <dt>Content model:</dt>
+          <dd>Array of Strings representing the URLs that are allowed to trigger installation of this application.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one.</dd>
+        </dl>
+      </section>
+   
 
-      <h3>Mandatory Properties</h3>
+      <section>
+        <h2>The <dfn><code>version</code></dfn> property</h2>
+          A string that represents the version of this manifest. This value is intended to be interpreted
+          just by the application itself or by a <a>privileged caller</a>. Thus the User-Agent does
+          not interpret this value in any way. The field is provided to help the developer deal
+          with various update cases, which will be discussed in following sections.
+          This specification does not mandate any specific format, semantics, or special
+          processing rule for the format of a version attribute. 
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>String.</dd>
+        <div class="practice">
+            <p>
+            <span id="sample-practice" class="practicelab">Recommended formatting of <code>Version</code> property</span></p>
+            <p class="practicedesc">
+            For the purpose of this specification, the structure of version tags has no semantics; they are just treated as arbitrary
+            strings (e.g. '1.0' is not less than '2.0', but is simply different). However, for the sake of consistency,
+            one can choose to use the following <a>[[ABNF]]</a>:
+            <pre>rec-version-tag = 1*DIGIT "."  1*DIGIT [ "." 1*DIGIT] *[ 1*ALPHA / SP / 1*DIGIT ]</pre>
+        </div>
+        <p><pre class="example">
+        Example version tags:<ul><li>Version 1.0 Beta</li><li>1.0 RC1</li><li>1.0-Build/1580</li><li>Joey the dog [5.1.2100]</li></ul>
+        Example of rec-version-tag:<ul><li>1.0</li><li>1.10.1 beta1</li><li>1.02.12 RC1</li></ul>
+        </pre></p>
+        <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a root property. Zero or one per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      </section>    
 
-      <ul>
-        <li><dfn>name</dfn>: The name of the web application in the default
-        locale. Maximum length is 128 characters.</li>
+      <section>
+        <h2>The <dfn><code>required_features</code></dfn> property</h2>
+        The set of features the application needs in order to run correctly. 
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>Array of Strings representing the required features. A full list of valid values is TBD.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a root property. Zero or one per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      </section>
+   
+      
+      <section>
+        <h2>The <dfn><code>screen_size</code></dfn> property</h2>
+        This object describes the minimum height and width (in pixels) the application
+            needs in order to render correctly. Interpretation of these values is left up
+            to the runtime and/or app store.
+        <dl>
+          <dt>Context in which this property is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>Empty.</dd>
+          <dt>Expected children:</dt>
+            <ul>         
+              <li>Zero or one <a>min_height</a> properties.</li>
+              <li>Zero or one <a>min_width</a> properties.</li>
+            </ul>  
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a root property. Zero or one per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      
+      <section>
+        <h2>The <dfn><code>min_height</code></dfn> property</h2>
+        The minimum height (in pixels) the application needs in order to render correctly.
+            Interpretation of these values is left up to the runtime and/or app store.
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a child of the <code><a>screen_size</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>String.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a child of <code><a>screen_size</a></code> property if present.</dd>
+        </dl>
+      </section>      
+      
+      <section>
+        <h2>The <dfn><code>min_width</code></dfn> property</h2>
+            The minimum width (in pixels) the application needs in order to render correctly.
+            Interpretation of these values is left up to the runtime and/or app store.
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a child of the <code><a>screen_size</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>String.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a child of <code><a>screen_size</a></code> property if present.</dd>
+        </dl>
+      </section>      
+      </section>
+            
+      <section>
+        <h2>The <dfn><code>orientation</code></dfn> property</h2>
+        This property defines the orientation at which the application will initially start.
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>Strings representing the orientation. Valid values are: "portrait", "landscape",
+          "portrait-secondary" and "landscape-secondary".The options suffixed with "-secondary" imply a
+          180 degree rotation from the options without the suffix, for instance, holding the phone
+          upside down (but still in a manner where width &lt; height), implies the "portrait-secondary" 
+          orientation. If this field had a valid value, the runtime will not change the orientation
+          of the view rendering the application even if the device is turned.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a root property. Zero or one per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      </section>
+                  
+      <section>
+        <h2>The <dfn><code>fullscreen</code></dfn> property</h2>
+        This property indicates whether the runtime should launch the application in fullscreen mode.
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a root property for the default locale or within the <code><a>locales</a></code> property.</dd>
+          <dt>Content model:</dt>
+          <dd>Boolean.</dd>
+          <dt>Expected children:</dt>
+          <dd>None.</dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one as a root property. Zero or one per locale override within the <code><a>locales</a></code> property.</dd>
+        </dl>
+      </section>
 
-        <li><dfn>description</dfn>: A short description of the web application
-        in the default locale. Maximum length is 1024 characters.</li>
+      <section>
+        <h2>The <dfn><code>locales</code></dfn> property</h2>
+            A map of locale specific overrides of data contained in the manifest. 
+            If the <a>locales</a> property is set, the <a>default_locale</a> MUST also be
+            set.
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a root property.</dd>
+          <dt>Content model:</dt>
+          <dd>Empty.</dd>
+          <dt>Expected children:</dt>
+          <dd>One child per locale override. Each locale key is identified by a language-tag as per [RFC4646],
+            and contains a sparse representation of the manifest. Any field in the <a>locales</a> property
+            will override the corresponding property in the manifest. The <a>locales</a>,
+            <a>installs_allowed_from</a>, and <a>default_locale</a> are global and CANNOT be overridden.
+            Therefore these later properties SHALL NOT be included within the <code>locales</code> property.
+            Note that wildcard "*" SHALL NOT be used as a valid locale key instead of a language-tag, as default
+            property values are to be included as root elements.
+          </dd>
+          <dt>Occurrences:</dt>
+          <dd>Zero or one.</dd>
+        </dl>
+      </section>
 
-        <li><dfn>default_locale</dfn>: [Mandatory only if "locales" property is
-        set]. The locale of the top-level name and description.</li>
-      </ul>
-
-      <h3>Optional Properties</h3>
-
-      <ul>
-        <li><dfn>launch_path</dfn>: The path within the web application's
-        origin that is loaded when the application is launched</li>
-
-        <li><dfn>icons</dfn>: A map of icon sizes to URIs of the icons (which
-        may be absolute or data URIs). Icons MUST be square.</li>
-
-        <li>
-          <dfn>developer</dfn>: Information about the developer of the
-          application, suitable for display.
-
-          <ul>
-            <li><dfn>name</dfn>: The name of the developer.</li>
-
-            <li><dfn>url</dfn>: A URL pointing to the developer's website</li>
-          </ul>
-        </li>
-
-        <li>
-          <dfn>locales</dfn>: A map of locale specific overrides of data
-          contained in the manifest. Each locale key is keyed on a locale tag
-          [RFC4646], and contains a sparse representation of the manifest. Any
-          field in the <a>locales</a> property will override the corresponding
-          property in the manifest. The <a>locales</a>,
-          <a>installs_allowed_from</a>, and <a>default_locale</a> CANNOT be
-          overridden. If the <a>locales</a> property is set, the
-          <a>default_locale</a> MUST also be set.
-        </li>
-
-        <li><dfn>installs_allowed_from</dfn>: An array of origins that are
-        allowed to trigger installation of this application. This field allows
-        the developer to restrict installation of their application to specific
-        sites. If the value is omitted, installs are allowed from any
-        site.</li>
-
-        <li><dfn>version</dfn>: A string that represents the version of this
-        manifest. The User-Agent does not interpret this value in any way and
-        is opqaue to everyone but the application itself. The field is provided
-        to help the developer deal with various update cases, which will be
-        discussed in following sections.</li>
-
-        <li><dfn>screen_size</dfn>: This object may contain the
-        <code>min_height</code> and <code>min_width</code> properties that
-        describe the minimum height and width (in pixels) the application needs
-        in order to render correctly. Interpretation of these values is left up
-        to the runtime and/or app store.</li>
-
-        <li><dfn>required_features</dfn>: This array consists of a set of
-        values that describes the mandatory features the application needs in
-        order to run correctly. A full list of valid values is TBD.</li>
-
-        <li><dfn>orientation</dfn>: This value defines the orientation at which
-        the application will initially start. Can be one of "portrait",
-        "landscape", "portrait-secondary" or "landscape-secondary". The options
-        suffixed with "-secondary" imply a 180 degree rotation from the options
-        without the suffix, for instance, holding the phone upside down (but
-        still in a manner where width &lt; height), implies the
-        "portrait-secondary" orientation. If this field had a valid value, the
-        runtime will not change the orientation of the view rendering the
-        application even if the device is turned.</li>
-
-        <li><dfn>fullscreen</dfn>: This value is set to "true" or "false" to
-        describe whether the runtime should launch the application in
-        fullscreen mode.</li>
-      </ul>
+      <section>
+        <h2>The <dfn><code>default_locale</code></dfn> property</h2>
+            The locale of the root properties that may be overriden by the content of the locales property
+            (e.g. name, description).
+        <dl>
+          <dt>Context in which this element is used:</dt>
+          <dd>As a root property.</dd>
+          <dt>Content model:</dt>
+          <dd>String in the form of a language-tag as per [RFC4646]</dd>
+          <dt>Expected children:</dt>
+          <dd>None.
+          <dt>Occurrences:</dt>
+          <dd>Zero or one. This property is mandatory if "locales" property is set.</dd>
+        </dl>
+      </section>
     </section>
 
     <section>
