@@ -79,6 +79,7 @@
     "installs_allowed_from": [
       "https://marketplace.mozilla.org"
     ],
+    "appcache_path": "/cache.manifest",
     "locales": [
       "es": {
         "description": "¡Acción abierta emocionante del desarrollo del Web!",
@@ -154,6 +155,11 @@
         the developer to restrict installation of their application to specific
         sites. If the value is omitted, installs are allowed from any
         site.</li>
+
+        <li><dfn>appcache_path</dfn>: The absolute path to the application cache
+        (<a href="http://www.w3.org/TR/2011/WD-html5-20110525/offline.html#appcache">AppCache</a>)
+        manifest. When an app is installed, the AppCache manifest will be fetched
+        and parsed, and its static assets under the CACHE header will be cached.</li>
 
         <li><dfn>version</dfn>: A string that represents the version of this
         manifest. The User-Agent does not interpret this value in any way and
