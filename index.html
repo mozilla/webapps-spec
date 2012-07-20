@@ -44,6 +44,7 @@
     "description": "Exciting Open Web development action!",
     "launch_path": "/",
     "version": "1.0",
+    "type": "trusted",
     "icons": {
       "16": "/img/icon_16.png",
       "48": "/img/icon_48.png",
@@ -103,6 +104,40 @@
 
         <li><dfn>icons</dfn>: A map of icon sizes to URIs of the icons (which
         may be absolute or data URIs). Icons MUST be square.</li>
+
+        <li><dfn>type</dfn>: Determines how this app and the manifest will
+        be verified by the runtime, and what security policy will apply. The
+        value MUST be one of the following:
+
+          <ul>
+            <li><dfn>web</dfn>: A regular web app, may be self hosted or
+            distributed by an app store. All permissions are opt-in at install
+            and runtime, limited to permissions enumerated in the manifest.
+            If the <a>type</a> property is not specified, this will be the
+            default value.</li>
+
+            <li><dfn>trusted</dfn>: An authenticated application approved by
+            an app store. Equivalent in functionality and security to apps on
+            other mobile platforms, but is required to be approved by an app
+            store after a code review or some equivalent risk management
+            process. At install, app assets are verified &amp; remain stored
+            locally in a package. Requires a Content Security Policy, and
+            all explicit permissions are requested at runtime, showing user the
+            app's data usage intentions, and persisted by default.</li>
+
+            <li><dfn>certified</dfn>: This category is reserved for apps that
+            require approval by a device vendor or equivalent party due to risk
+            of device corruption or risk to critical functionality. These
+            include apps such as the system settings app, default dialer
+            (to ensure emergency services are always accessible), core radio
+            and power management, etc. Not intended for 3rd party applications.
+            </li>
+          </ul>
+
+        See also: <a href="https://wiki.mozilla.org/Apps/Security#Types_of_applications">
+        "Types of Applications"</a>, for a more detailed description of each
+        type.
+        </li>
 
         <li>
           <dfn>developer</dfn>: Information about the developer of the
