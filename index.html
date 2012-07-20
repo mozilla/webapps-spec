@@ -2,46 +2,20 @@
 
 <html>
 <head>
-  <meta name="generator" content=
-  "HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/d193420">
-
   <title>Web Application Manifest Format and Management APIs</title>
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
-  <script src='http://dev.w3.org/2009/dap/ReSpec.js/js/respec.js' class=
-  'remove'>
-</script>
-  <script class='remove'>
-    var respecConfig = {
-          // document info
-          subtitle:             "A format for describing web applications and APIs to install, launch and manage them",
-          specStatus:           "ED",
-          shortName:            "webapps-manifest-api",
-          copyrightStart:       "2012",
-          previousPublishDate:  "2012-03-19",
-          previousMaturity:     "unofficial",
-          // lcEnd: ...
-          extraCSS:             ["http://dev.w3.org/2009/dap/ReSpec.js/css/respec.css"],
-          inlineCSS:            true,
-          // editors
-          editors:  [
-              { name: "Anant Narayanan",
-                company: "Mozilla", companyURL: "http://mozilla.org/" }
-          ],
-          // WG
-          wg:           "Webapps Working Group",
-          wgURI:        "http://www.w3.org/2008/webapps/",
-          wgPublicList: "public-webapps",
-          wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/42538/status",
-      };
-
-      function hilight(r, content) {
-        return '<em>' +content+ '</em>' ;
-      }
-
-      function fixSchema(r, content) {
-        return r._esc(content);
-      }
+  <script class="remove" src="http://www.w3.org/Tools/respec/respec-w3c-common"
+  type="text/javascript">
+  <!-- keep this comment -->
   </script>
+  <script class="remove" src="webapps.js" type="text/javascript">
+  <!-- keep this comment -->
+  </script>
+  <style>
+    ul.properties > li {
+      margin-bottom: 1em;
+    }
+  </style>
 </head>
 
 <body>
@@ -98,7 +72,6 @@
     "orientation": "landscape",
     "fullscreen": "true"
   }
-        
 </pre>
     </section>
 
@@ -107,7 +80,7 @@
 
       <h3>Mandatory Properties</h3>
 
-      <ul>
+      <ul class="properties">
         <li><dfn>name</dfn>: The name of the web application in the default
         locale. Maximum length is 128 characters.</li>
 
@@ -120,9 +93,9 @@
 
       <h3>Optional Properties</h3>
 
-      <ul>
+      <ul class="properties">
         <li><dfn>launch_path</dfn>: The path within the web application's
-        origin that is loaded when the application is launched</li>
+        origin that is loaded when the application is launched.</li>
 
         <li><dfn>icons</dfn>: A map of icon sizes to URIs of the icons (which
         may be absolute or data URIs). Icons MUST be square.</li>
