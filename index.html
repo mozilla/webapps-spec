@@ -2,6 +2,9 @@
 
 <html>
 <head>
+  <meta name="generator" content=
+  "HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/d193420">
+
   <title>Web Application Manifest Format and Management APIs</title>
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
   <script class="remove" src="http://www.w3.org/Tools/respec/respec-w3c-common"
@@ -73,7 +76,7 @@
     "orientation": "landscape",
     "fullscreen": "true"
   }
-</pre>
+      </pre>
     </section>
 
     <section>
@@ -129,10 +132,14 @@
         sites. If the value is omitted, installs are allowed from any
         site.</li>
 
-        <li><dfn>appcache_path</dfn>: The absolute path to the application cache
-        (<a href="http://www.w3.org/TR/2011/WD-html5-20110525/offline.html#appcache">AppCache</a>)
-        manifest. When an app is installed, the AppCache manifest will be fetched
-        and parsed, and its static assets under the CACHE header will be cached.</li>
+        <li>
+          <dfn>appcache_path</dfn>: The absolute path to the application cache
+          (<a href=
+          "http://www.w3.org/TR/2011/WD-html5-20110525/offline.html#appcache">AppCache</a>)
+          manifest. When an app is installed, the AppCache manifest will be
+          fetched and parsed, and its static assets under the CACHE header will
+          be cached.
+        </li>
 
         <li><dfn>version</dfn>: A string that represents the version of this
         manifest. The User-Agent does not interpret this value in any way and
