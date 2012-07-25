@@ -82,6 +82,9 @@
 
     <section>
       <h2>Properties</h2>
+      <p class="note">
+        All leaf properties MUST contain string values.
+      </p>
 
       <h3>Mandatory Properties</h3>
 
@@ -106,8 +109,10 @@
         may be absolute or data URIs). Icons MUST be square.</li>
 
         <li><dfn>type</dfn>: Determines how this app and the manifest will
-        be verified by the runtime, and what security policy will apply. The
-        value MUST be one of the following:
+        be verified by the runtime, and what security policy will apply.
+        See <a href="https://wiki.mozilla.org/Apps/Security#Types_of_applications">
+        types of applications</a>, for a more detailed description. The value
+        for this property MUST be one of the following:
 
           <ul>
             <li><dfn>web</dfn>: A regular web app, may be self hosted or
@@ -134,9 +139,6 @@
             </li>
           </ul>
 
-        See also: <a href="https://wiki.mozilla.org/Apps/Security#Types_of_applications">
-        "Types of Applications"</a>, for a more detailed description of each
-        type.
         </li>
 
         <li>
@@ -192,19 +194,24 @@
         values that describes the mandatory features the application needs in
         order to run correctly. A full list of valid values is TBD.</li>
 
-        <li><dfn>orientation</dfn>: This value defines the orientation at which
-        the application will initially start. Can be one of "portrait",
-        "landscape", "portrait-secondary" or "landscape-secondary". The options
-        suffixed with "-secondary" imply a 180 degree rotation from the options
-        without the suffix, for instance, holding the phone upside down (but
-        still in a manner where width &lt; height), implies the
-        "portrait-secondary" orientation. If this field had a valid value, the
-        runtime will not change the orientation of the view rendering the
-        application even if the device is turned.</li>
+        <li><dfn>orientation</dfn>: This value defines the orientation with
+        which the application will initially start. If a value is provided,
+        the runtime SHOULD ensure that the viewport rendering the application
+        will adhere to the specified value, even if the device is rotated at an
+        angle different from the specified value. The default behavior SHOULD be
+        to rotate the viewport at an angle that best fits the orientation of the
+        device, and MUST change as the user spatially rotates the device. The
+        value MUST be one of <dfn>portrait</dfn>, <dfn>landscape</dfn>,
+        <dfn>portrait-primary</dfn>, <dfn>portrait-secondary</dfn>,
+        <dfn>landscape-primary</dfn> or <dfn>landscape-secondary</dfn>. The
+        options suffixed with "-secondary" imply a 180 degree rotation from
+        the options with the "-primary" suffix, for instance, holding the phone
+        upside down (but still in a manner where <code>width &lt;
+        height</code>), implies the <a>portrait-secondary</a> orientation.</li>
 
-        <li><dfn>fullscreen</dfn>: This value is set to "true" or "false" to
-        describe whether the runtime should launch the application in
-        fullscreen mode.</li>
+        <li><dfn>fullscreen</dfn>: This value MUST be set to either
+        <dfn>true</dfn> or <dfn>false</dfn> to describe whether the runtime
+        should launch the application in fullscreen mode.</li>
       </ul>
     </section>
 
