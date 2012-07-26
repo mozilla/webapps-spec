@@ -106,7 +106,9 @@
         origin that is loaded when the application is launched.</li>
 
         <li><dfn>icons</dfn>: A map of icon sizes to URIs of the icons (which
-        may be absolute or data URIs). Icons MUST be square.</li>
+        may be absolute, relative or data URIs). Icons MUST be square. Paths
+        beginning with "<code>/</code>" are treated as relative to the origin
+        of the app.</li>
 
         <li><dfn>type</dfn>: Determines how this app and the manifest will
         be verified by the runtime, and what security policy will apply.
