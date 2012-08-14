@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/d193420">
+  "HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/c63cc39">
 
   <title>Web Application Manifest Format and Management APIs</title>
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
@@ -85,162 +85,186 @@
 
     <section>
       <h2>Properties</h2>
-      <p class="note">
-        All leaf properties MUST contain string values.
-      </p>
+
+      <p class="note">All leaf properties MUST contain string values.</p>
 
       <h3>Mandatory Properties</h3>
 
       <ul class="properties">
-        <li><dfn>name</dfn>: The name of the web application in the default
-        locale. Maximum length is 128 characters.</li>
+        <li><dfn id="propdef-name">name</dfn>: The name of the web application
+        in the default locale. Maximum length is 128 characters.</li>
 
-        <li><dfn>description</dfn>: A short description of the web application
-        in the default locale. Maximum length is 1024 characters.</li>
+        <li><dfn id="propdef-description">description</dfn>: A short
+        description of the web application in the default locale. Maximum
+        length is 1024 characters.</li>
 
-        <li><dfn>default_locale</dfn>: [Mandatory only if "locales" property is
-        set]. The locale of the top-level name and description.</li>
+        <li><dfn id="propdef-default_locale">default_locale</dfn>: <i>Mandatory
+        only if "locales" property is set</i>. The locale of the top-level name
+        and description.</li>
       </ul>
 
       <h3>Optional Properties</h3>
 
       <ul class="properties">
-        <li><dfn>launch_path</dfn>: The path within the web application's
-        origin that is loaded when the application is launched.</li>
+        <li><dfn id="propdef-launch_path">launch_path</dfn>: The path within
+        the web application's origin that is loaded when the application is
+        launched.</li>
 
-        <li><dfn>icons</dfn>: A map of icon sizes to URIs of the icons (which
-        may be absolute, relative or data URIs). Icons MUST be square. Paths
-        beginning with "<code>/</code>" are treated as relative to the origin
-        of the app.</li>
+        <li><dfn id="propdef-icons">icons</dfn>: A map of icon sizes to URIs of
+        the icons (which may be absolute, relative or data URIs). Icons MUST be
+        square. Paths beginning with "<code>/</code>" are treated as relative
+        to the origin of the app.</li>
 
-        <li><dfn>type</dfn>: Determines how this app and the manifest will
-        be verified by the runtime, and what security policy will apply.
-        See <a href="https://wiki.mozilla.org/Apps/Security#Types_of_applications">
-        types of applications</a>, for a more detailed description. The value
-        for this property MUST be one of the following:
+        <li>
+          <dfn id="propdef-type">type</dfn>: Determines how this app and the
+          manifest will be verified by the runtime, and what security policy
+          will apply. See <a href=
+          "https://wiki.mozilla.org/Apps/Security#Types_of_applications">types
+          of applications</a>, for a more detailed description. The value for
+          this property MUST be one of the following:
 
           <ul>
-            <li><dfn>web</dfn>: A regular web app, may be self hosted or
-            distributed by an app store. All permissions are opt-in at install
-            and runtime, limited to permissions enumerated in the manifest.
-            If the <a>type</a> property is not specified, this will be the
-            default value.</li>
-
-            <li><dfn>privileged</dfn>: An authenticated application approved by
-            an app store. Equivalent in functionality and security to apps on
-            other mobile platforms, but is required to be approved by an app
-            store after a code review or some equivalent risk management
-            process. At install, app assets are verified &amp; remain stored
-            locally in a package. Requires a Content Security Policy, and
-            all explicit permissions are requested at runtime, showing user the
-            app's data usage intentions, and persisted by default.</li>
-
-            <li><dfn>certified</dfn>: This category is reserved for apps that
-            require approval by a device vendor or equivalent party due to risk
-            of device corruption or risk to critical functionality. These
-            include apps such as the system settings app, default dialer
-            (to ensure emergency services are always accessible), core radio
-            and power management, etc. Not intended for 3rd party applications.
+            <li>
+              <dfn id="propdef-type-web">web</dfn>: A regular web app, may be
+              self hosted or distributed by an app store. All permissions are
+              opt-in at install and runtime, limited to permissions enumerated
+              in the manifest. If the <a>type</a> property is not specified,
+              this will be the default value.
             </li>
-          </ul>
 
+            <li><dfn id="propdef-type-privileged">privileged</dfn>: An
+            authenticated application approved by an app store. Equivalent in
+            functionality and security to apps on other mobile platforms, but
+            is required to be approved by an app store after a code review or
+            some equivalent risk management process. At install, app assets are
+            verified &amp; remain stored locally in a package. Requires a
+            Content Security Policy, and all explicit permissions are requested
+            at runtime, showing user the app's data usage intentions, and
+            persisted by default.</li>
+
+            <li><dfn id="propdef-type-certified">certified</dfn>: This category
+            is reserved for apps that require approval by a device vendor or
+            equivalent party due to risk of device corruption or risk to
+            critical functionality. These include apps such as the system
+            settings app, default dialer (to ensure emergency services are
+            always accessible), core radio and power management, etc. Not
+            intended for 3rd party applications.</li>
+          </ul>
         </li>
 
         <li>
-          <dfn>developer</dfn>: Information about the developer of the
-          application, suitable for display.
+          <dfn id="propdef-developer">developer</dfn>: Information about the
+          developer of the application, suitable for display.
 
           <ul>
-            <li><dfn>name</dfn>: The name of the developer.</li>
+            <li><dfn id="propdef-developer-name">name</dfn>: The name of the
+            developer.</li>
 
-            <li><dfn>url</dfn>: A URL pointing to the developer's website</li>
+            <li><dfn id="propdef-url">url</dfn>: A URL pointing to the
+            developer's website</li>
           </ul>
         </li>
 
         <li>
-          <dfn>locales</dfn>: A map of locale specific overrides of data
-          contained in the manifest. Each locale key is keyed on a locale tag
-          [RFC4646], and contains a sparse representation of the manifest. Any
-          field in the <a>locales</a> property will override the corresponding
-          property in the manifest. The <a>locales</a>,
+          <dfn id="propdef-locales">locales</dfn>: A map of locale specific
+          overrides of data contained in the manifest. Each locale key is keyed
+          on a locale tag [RFC4646], and contains a sparse representation of
+          the manifest. Any field in the <a>locales</a> property will override
+          the corresponding property in the manifest. The <a>locales</a>,
           <a>installs_allowed_from</a>, and <a>default_locale</a> CANNOT be
           overridden. If the <a>locales</a> property is set, the
           <a>default_locale</a> MUST also be set.
         </li>
 
-        <li><dfn>installs_allowed_from</dfn>: An array of origins that are
-        allowed to trigger installation of this application. This field allows
-        the developer to restrict installation of their application to specific
-        sites. If the value is omitted, installs are allowed from any
-        site.</li>
+        <li><dfn id=
+        "propdef-installs_allowed_from">installs_allowed_from</dfn>: An array
+        of origins that are allowed to trigger installation of this
+        application. This field allows the developer to restrict installation
+        of their application to specific sites. If the value is omitted,
+        installs are allowed from any site.</li>
 
         <li>
-          <dfn>appcache_path</dfn>: The absolute path to the application cache
-          (<a href=
+          <dfn id="propdef-appcache_path">appcache_path</dfn>: The absolute
+          path to the application cache (<a href=
           "http://www.w3.org/TR/2011/WD-html5-20110525/offline.html#appcache">AppCache</a>)
           manifest. When an app is installed, the AppCache manifest will be
           fetched and parsed, and its static assets under the CACHE header will
           be cached.
         </li>
 
-        <li><dfn>version</dfn>: A string that represents the version of this
-        manifest. The User-Agent does not interpret this value in any way and
-        is opqaue to everyone but the application itself. The field is provided
-        to help the developer deal with various update cases, which will be
-        discussed in following sections.</li>
+        <li><dfn id="propdef-version">version</dfn>: A string that represents
+        the version of this manifest. The User-Agent does not interpret this
+        value in any way and is opqaue to everyone but the application itself.
+        The field is provided to help the developer deal with various update
+        cases, which will be discussed in following sections.</li>
 
-        <li><dfn>screen_size</dfn>: This object may contain the
-        <code>min_height</code> and <code>min_width</code> properties that
-        describe the minimum height and width (in pixels) the application needs
-        in order to render correctly. Interpretation of these values is left up
-        to the runtime and/or app store.</li>
+        <li><dfn id="propdef-screen_size">screen_size</dfn>: This object may
+        contain the <code>min_height</code> and <code>min_width</code>
+        properties that describe the minimum height and width (in pixels) the
+        application needs in order to render correctly. Interpretation of these
+        values is left up to the runtime and/or app store.</li>
 
-        <li><dfn>required_features</dfn>: This array consists of a set of
-        values that describes the mandatory features the application needs in
-        order to run correctly. A full list of valid values is TBD.</li>
+        <li><dfn id="propdef-required_features">required_features</dfn>: This
+        array consists of a set of values that describes the mandatory features
+        the application needs in order to run correctly. A full list of valid
+        values is TBD.</li>
 
-        <li><dfn>orientation</dfn>: This value defines the allowed orientations
-        at which the application may be rendered. If a value is provided,
-        the runtime MUST ensure that the viewport rendering the application
-        will adhere to one of the specified values and never orient the
-        application in a direction not specified in this property. The default
-        behavior SHOULD be to rotate the viewport at an angle that best fits
-        the orientation of the device, and MUST change as the user spatially
-        rotates the device. The value MUST be a comma-seperated list containing
-        one or more of the following values (duplicates SHOULD be ignored):
+        <li>
+          <dfn id="propdef-orientation">orientation</dfn>: This value defines
+          the allowed orientations at which the application may be rendered. If
+          a value is provided, the runtime MUST ensure that the viewport
+          rendering the application will adhere to one of the specified values
+          and never orient the application in a direction not specified in this
+          property. The default behavior SHOULD be to rotate the viewport at an
+          angle that best fits the orientation of the device, and MUST change
+          as the user spatially rotates the device. The value MUST be a
+          comma-seperated list containing one or more of the following values
+          (duplicates SHOULD be ignored):
+
           <ul>
-            <li><dfn>portrait-primary</dfn>: Locked to a single portrait
-              direction. If the device has an obvious primary orientation in
-              portrait mode, this is that orientation. If there is no obvious
-              primary orientation due to landscape being the primary orientation
-              for the device, this is the orientation if rotating the device 90
-              degrees clock-wise from the primary landscape mode.
+            <li><dfn id=
+            "propdef-orientation-portrait-primary">portrait-primary</dfn>:
+            Locked to a single portrait direction. If the device has an obvious
+            primary orientation in portrait mode, this is that orientation. If
+            there is no obvious primary orientation due to landscape being the
+            primary orientation for the device, this is the orientation if
+            rotating the device 90 degrees clock-wise from the primary
+            landscape mode.</li>
+
+            <li><dfn id=
+            "propdef-orientation-landscape-primary">landscape-primary</dfn>:
+            Locked to a single landscape direction. If the device has an
+            obvious primary orientation in landscape mode, this is that
+            orientation. If there is no obvious landscape orientation due to
+            portrait being the primary orientation for the device, this is the
+            orientation if rotating the device 90 degrees clock-wise from the
+            primary portrait mode.</li>
+
+            <li>
+              <dfn id=
+              "propdef-orientation-portrait-secondary">portrait-secondary</dfn>:
+              The portrait mode opposite of <a>portrait-primary</a>.
             </li>
-            <li><dfn>landscape-primary</dfn>: Locked to a single landscape
-              direction. If the device has an obvious primary orientation in
-              landscape mode, this is that orientation. If there is no obvious
-              landscape orientation due to portrait being the primary
-              orientation for the device, this is the orientation if rotating
-              the device 90 degrees clock-wise from the primary portrait mode.
+
+            <li>
+              <dfn id=
+              "propdef-orientation-landscape-secondary">landscape-secondary</dfn>:
+              The landscape mode opposite of <a>landscape-primary</a>.
             </li>
-            <li><dfn>portrait-secondary</dfn>: The portrait mode opposite of
-              <a>portrait-primary</a>.
-            </li>
-            <li><dfn>landscape-secondary</dfn>: The landscape mode opposite of
-              <a>landscape-primary</a>.
-            </li>
-            <li><dfn>portrait</dfn>: Equivalent to
-              <code>"portrait-primary,portrait-secondary"</code>.
-            </li>
-            <li><dfn>landscape</dfn>: Equivalent to
-              <code>"landscape-primary,landscape-secondary"</code>.
-            </li>
+
+            <li><dfn id="propdef-orientation-portrait">portrait</dfn>:
+            Equivalent to
+            <code>"portrait-primary,portrait-secondary"</code>.</li>
+
+            <li><dfn id="propdef-orientation-landscape">landscape</dfn>:
+            Equivalent to
+            <code>"landscape-primary,landscape-secondary"</code>.</li>
           </ul>
         </li>
 
-        <li><dfn>fullscreen</dfn>: This value MUST be set to either
-        <dfn>true</dfn> or <dfn>false</dfn> to describe whether the runtime
-        should launch the application in fullscreen mode.</li>
+        <li><dfn id="propdef-fullscreen">fullscreen</dfn>: This value MUST be
+        set to either <dfn>true</dfn> or <dfn>false</dfn> to describe whether
+        the runtime should launch the application in fullscreen mode.</li>
       </ul>
     </section>
 
