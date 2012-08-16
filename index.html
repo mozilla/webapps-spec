@@ -398,10 +398,8 @@
     <h2>Application Registry</h2>
 
     <section>
-      <p>A privileged caller is a web page that has been explicitely authorized
-      by the user to manage applications on their behalf. Such privileged
-      origins also have access to the AppRegistry interface as described
-      below.</p>
+      <p>The following interface is made available to allow installation of apps
+      and for apps to query for their current state.</p>
 
       <dl title='interface AppRegistry : Navigator' class='idl'>
         <dt>EventTarget install(in DOMString manifestUrl, [Optional] in Object
@@ -418,31 +416,53 @@
 
         <dt>EventTarget getSelf()</dt>
 
-        <dd>Retrieves the application record for the origin from which the call
+        <dd>Retrieves the application record for the origin at which the call
         is made.</dd>
 
         <dt>EventTarget getInstalled()</dt>
 
-        <dd>Retrives application records for all applications that have been
-        installed so far. <em>This call is available to privileged callers
-        only.</em></dd>
+        <dd>Retrieves application records for all apps that have been installed
+        so far from the origin at which the call is made.</dd>
+
+        <dt>attribute AppRegistryManagement mgmt</dt>
+
+        <dd>Provides access to the management interace. <em>This attribute is
+        available to privileged callers only.</em></dd>
+      </dl>
+    </section>
+  </section>
+
+  <section>
+    <h2>Application Registry Management</h2>
+
+    <section>
+      <p>A privileged caller is a web page that has been explicitely authorized
+      by the user to manage applications on their behalf. Such privileged
+      origins also have access to the AppRegistryManagement interface as
+      described below.</p>
+
+      <dl title='interface AppRegistryManagement' class='idl'>
+        <dt>EventTarget getAll()</dt>
+
+        <dd>Retrieves the application records for all apps that have been
+        installed so far.</dd>
 
         <dt>attribute EventListener oninstall</dt>
 
         <dd>This value may be set to a function that will be invoked when an
         application is installed. The only argument to this function will be
-        the <code>AppObject</code> of the application that was installed.
-        <em>This attribute can be set by priveleged callers only.</em></dd>
+        the <code>AppObject</code> of the application that was installed.</dd>
 
         <dt>attribute EventListener onuninstall</dt>
 
         <dd>This value may be set to a function that will be invoked when an
         application is uninstalled. The only argument to this function be the
-        <code>AppObject</code> of the application that was uninstalled.
-        <em>This attribute can be set by privileged callers only.</em></dd>
+        <code>AppObject</code> of the application that was uninstalled.</dd>
       </dl>
     </section>
+  </section>
 
+  <section>
     <h2>Application Events</h2>
 
     <section>
