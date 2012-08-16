@@ -78,7 +78,16 @@
       "touch", "geolocation", "webgl"
     ],
     "orientation": "landscape",
-    "fullscreen": "true"
+    "fullscreen": "true",
+    "activities": {
+      "share": {
+        "filters": {
+          "type": ["image/png", "image/gif"]
+        }
+        "href": "/share.html",
+        "disposition": "window"
+      }
+    }
   }
       </pre>
     </section>
@@ -88,6 +97,7 @@
 
       <p class="note">All leaf properties MUST contain string values.</p>
 
+      <section>
       <h3>Mandatory Properties</h3>
 
       <ul class="properties">
@@ -102,7 +112,9 @@
         only if "locales" property is set</i>. The locale of the top-level name
         and description.</li>
       </ul>
+      </section>
 
+      <section>
       <h3>Optional Properties</h3>
 
       <ul class="properties">
@@ -265,7 +277,63 @@
         <li><dfn id="propdef-fullscreen">fullscreen</dfn>: This value MUST be
         set to either <dfn>true</dfn> or <dfn>false</dfn> to describe whether
         the runtime should launch the application in fullscreen mode.</li>
+
+        <li><dfn id="propdef-activities">activities</dfn>: This value specifies
+        a set of
+        <a href="https://wiki.mozilla.org/WebAPI/WebActivities">WebActivities</a>
+        that this app supports. Each property in this value is a discrete
+        activity whose name matches the property name. Activity names are
+        free-form text, and each activity and is represented as an object. This
+        object MUST contain the following property:
+
+        <ul>
+          <li><dfn id="propdef-activities-href">href</dfn>: When another app
+          or web page initiates an activity that is supported by this app, if
+          this app is chosen to perform the activity, this page will be opened
+          in the manner specified by the <dfn>disposition</dfn> property. The
+          manner in which a particular app is chosen to perform an activity is
+          out of scope for this specification.</li>
+        </ul>
+
+        An activity object MAY also contain the following properties:
+
+        <ul>
+          <li><dfn id="propdef-activites-disposition">disposition</dfn>: This
+          value specifies how the page specified in <dfn>href</dfn> is presented
+          when an activity is invoked. The value, if specified, MUST be one of
+          the following (if omitted, defaults to <dfn>window</dfn>):
+            <ul>
+              <li><dfn id="propdef-activities-disposition-window">window</dfn>:
+              The page handling the activity is opened in a new "window" (on a
+              mobile device, for example, this view will replace the original
+              app that requested the activity). The page MUST call
+              <code>navigator.setMessageHandler</code> for each activity it
+              supports and subsequently execute the activity for which it
+              receives a message. Further, if the activity requires a return
+              value, the page MUST call <code>activity.postResult</code> or
+              <code>activity.postError</code> (where <code>activity</code> is
+              the first argument provided to the function specified by
+              <code>setMessageHandler</code>) as appropriate.</li>
+
+              <li><dfn id="propdef-activities-disposition-inline">inline</dfn>:
+              The page handling the activity will open in an overlay (on a
+              mobile device, for example, this will be rendered in a popup over
+              the original app that requested the activity). Subsequent behavior
+              is exactly the same as if the disposition were
+              <dfn>window</dfn>.</li>
+            </ul>
+
+          <li><dfn id="propdef-activities-filters">filters</dfn>:
+          <i>OPTIONAL</i>. This value is a dictionary, each property of which
+          specified a particular filter. These filters will be applied while
+          determining apps suitable for handling a given activity. Filter names
+          are free-form text, but their values MUST be either a string or an
+          array of strings (the exact type depends on the filter).</li>
+        </ul>
+
       </ul>
+      </section>
+
     </section>
 
     <section>
