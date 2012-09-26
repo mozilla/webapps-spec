@@ -229,8 +229,8 @@
           and never orient the application in a direction not specified in this
           property. The default behavior SHOULD be to rotate the viewport at an
           angle that best fits the orientation of the device, and MUST change
-          as the user spatially rotates the device. The value MUST be a
-          comma-seperated list containing one or more of the following values
+          as the user spatially rotates the device. The value MUST be an
+          array containing one or more of the following string values
           (duplicates SHOULD be ignored):
 
           <ul>
@@ -266,11 +266,11 @@
 
             <li><dfn id="propdef-orientation-portrait">portrait</dfn>:
             Equivalent to
-            <code>"portrait-primary,portrait-secondary"</code>.</li>
+            <code>["portrait-primary", "portrait-secondary"]</code>.</li>
 
             <li><dfn id="propdef-orientation-landscape">landscape</dfn>:
             Equivalent to
-            <code>"landscape-primary,landscape-secondary"</code>.</li>
+            <code>["landscape-primary", "landscape-secondary"]</code>.</li>
           </ul>
         </li>
 
@@ -313,7 +313,9 @@
               value, the page MUST call <code>activity.postResult</code> or
               <code>activity.postError</code> (where <code>activity</code> is
               the first argument provided to the function specified by
-              <code>setMessageHandler</code>) as appropriate.</li>
+              <code>setMessageHandler</code>) as appropriate. These functions
+              are specified in greater details in the WebActivities
+              document.</li>
 
               <li><dfn id="propdef-activities-disposition-inline">inline</dfn>:
               The page handling the activity will open in an overlay (on a
