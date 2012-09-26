@@ -21,6 +21,14 @@
     ul > li {
       margin: 0.5em;
     }
+    table {
+      border: 1px dashed black;
+      margin: 1em;
+    }
+    td, th {
+      border: 1px solid black;
+      padding: 0.5em;
+    }
   </style>
 </head>
 
@@ -78,6 +86,12 @@
       "touch", "geolocation", "webgl"
     ],
     "orientation": "landscape",
+    "permissions": {
+      "contacts": {
+        "description": "Required for autocompletion in the share screen",
+        "access": "read"
+      }
+    },
     "fullscreen": "true",
     "activities": {
       "share": {
@@ -272,6 +286,167 @@
             Equivalent to
             <code>["landscape-primary", "landscape-secondary"]</code>.</li>
           </ul>
+        </li>
+
+        <li><dfn id="propdef-permisssions">permissions</dfn>: This value
+        consists of a set of permissions that the application needs. An
+        application MUST list every API that is considered to require user
+        permission in this field. Usage of an API without a corresponding
+        entry in the manifest will fail. The field is an object, with each
+        property name specifying a single permission, and object containing
+        the following fields:
+
+          <ul>
+            <li>
+              <dfn id="propdef-permissions-desc">description</dfn>: Contains
+              a human readable string specifying the intent behind requesting
+              use of this API. This property is mandatory.
+            </li>
+            <li>
+              <dfn id="propdef-permissions-access">access</dfn>: Contains a
+              a string specifying the type of access required for this
+              permission. This field is mandatory for a certain subset of
+              permissions, and MUST be one of <dfn>read</dfn>,
+              <dfn>readwrite</dfn>, <dfn>readcreate</dfn>, or
+              <dfn>createonly</dfn>.
+            </li>
+          </ul>
+
+        The following table lists the various permissions, and whether
+        they require an <a>access</a> property.
+
+        <table>
+          <tr>
+            <th>Permission Name</th>
+            <th>Permission Description</th>
+            <th>Access Type</th>
+          </tr>
+          <tr>
+            <td><code>alarm</code></td>
+            <td>Schedule a notification, or for an application to be started,
+            at a specific time.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>backgroundservice</code></td>
+            <td>Enable a web application to run in the background and perform
+            tasks like syncing or respond to incoming messages.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>bluetooth</code></td>
+            <td>Low level access to bluetooth hardware.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>browser</code></td>
+            <td>Enables implementing a browser.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>camera</code></td>
+            <td>Take photos, shoot video and control the camera.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>contacts</code></td>
+            <td>Add, read, or modify contacts from the address book on the
+            device and read contacts from the SIM.</td>
+            <td>readonly, readwrite, readcreate, createonly</td>
+          </tr>
+          <tr>
+            <td><code>desktop-notification</code></td>
+            <td>Display a notification on the user's desktop.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>device-storage</code></td>
+            <td>Add, read, or modify files stored at a central location on the
+            device.</td>
+            <td>readonly, readwrite, readcreate, createonly</td>
+          </tr>
+          <tr>
+            <td><code>fmradio</code></td>
+            <td>Control the FM radio.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>geolocation</code></td>
+            <td>Obtain the current location of the user.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>mobileconnection</code></td>
+            <td>Obtain information about the current mobile voice and data
+            connection.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>power</code></td>
+            <td>Turn the screen on or off, control CPU, device power, etc.
+            Listen for and inspect resource lock events.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>push</code></td>
+            <td>Receive push events.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>settings</code></td>
+            <td>Configure or read device settings.</td>
+            <td>readonly, readwrite</td>
+          </tr>
+          <tr>
+            <td><code>sms</code></td>
+            <td>Send and receive SMS.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>storage</code></td>
+            <td>Utilize localStorage and indexedDB without size limitations.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>systemclock</code></td>
+            <td>Set current time. (Timezone information is controlled by the
+            settings API).</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>network-http</code></td>
+            <td>Make HTTP requests without any origin restrictions.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>network-tcp</code></td>
+            <td>Create and communicate over TCP sockets.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>telephony</code></td>
+            <td>All telephony related APIs.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>wake-lock-screen</code></td>
+            <td>Turn the display on and show the lock screen.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>webapps-manage</code></td>
+            <td>Obtain access to the <code>navigator.apps.mgmt</code> API to
+            manage installed webapps.</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td><code>wifi</code></td>
+            <td>Enumerate available WiFi networks, get signal strength, connect
+            to a network.</td>
+            <td>-</td>
+          </tr>
+        </table>
+
         </li>
 
         <li><dfn id="propdef-fullscreen">fullscreen</dfn>: This value MUST be
